@@ -111,14 +111,7 @@ function onFile(filePromises, fieldname, file, filename, encoding, mimetype) {
     .on('open', () => file
       .pipe(writeStream)
       .on('error', reject)
-      .on('finish', () => {
-        const readStream = fs.createReadStream(saveTo);
-        readStream.fieldname = fieldname;
-        readStream.filename = filename;
-        readStream.transferEncoding = readStream.encoding = encoding;
-        readStream.mimeType = readStream.mime = mimetype;
-        resolve(readStream);
-      })
+      .on('finish', () => ({ path: saveTo, name: filename, mimetype, encoding, file }))
     )
     .on('error', reject)
   );
