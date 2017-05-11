@@ -111,7 +111,7 @@ function onFile(filePromises, fieldname, file, filename, encoding, mimetype) {
     .on('open', () => file
       .pipe(writeStream)
       .on('error', reject)
-      .on('finish', () => ({ path: saveTo, name: filename, mimetype, encoding, file }))
+      .on('finish', () => resolve({ path: saveTo, name: filename, mimetype, encoding, file }))
     )
     .on('error', reject)
   );
